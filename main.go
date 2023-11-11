@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type CurrentAccount struct {
 	holder        string
@@ -21,4 +23,11 @@ func main() {
 		"", account.numberAgency, "\nNumber account: ", account.numberAgency, ""+
 		"\nBalance:", account.balance)
 
+	var countYasmin *CurrentAccount
+	countYasmin = new(CurrentAccount)
+	countYasmin.holder = "Yasmin"
+	countYasmin.balance = 800
+
+	fmt.Println(*countYasmin, "Ponteiro")
+	fmt.Println(countYasmin, "Sem ponteiro")
 }
