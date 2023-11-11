@@ -2,12 +2,23 @@ package main
 
 import "fmt"
 
-type name struct {
+type CurrentAccount struct {
+	holder        string
+	numberAccount int
+	numberAgency  int
+	balance       float64
 }
 
 func main() {
 
-	var titular string = "Guilherme"
+	account := CurrentAccount{
+		holder:        "Guilherme",
+		numberAccount: 589,
+		numberAgency:  123456,
+		balance:       125.50,
+	}
+	fmt.Println("Count of "+account.holder+"\nNumber agency:"+
+		"", account.numberAgency, "\nNumber account: ", account.numberAgency, ""+
+		"\nBalance:", account.balance)
 
-	fmt.Println("Nome: " + titular)
 }
