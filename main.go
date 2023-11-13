@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type CurrentAccount struct {
 	holder        string
@@ -13,47 +11,44 @@ type CurrentAccount struct {
 
 func main() {
 
-	account := CurrentAccount{
-		holder:        "Guilherme",
-		numberAccount: 589,
-		numberAgency:  123456,
-		balance:       125.50,
+	countGui := CurrentAccount{}
+
+	countGui.holder = "Gui"
+	countGui.balance = 500
+
+	withdrawalAmount := 200.
+
+	fmt.Println(countGui.withdraw(withdrawalAmount))
+	fmt.Println(countGui)
+
+	status, valor := countGui.Deposit(500)
+
+	fmt.Println(status, valor)
+
+	fmt.Println(countGui)
+
+}
+
+func (c *CurrentAccount) Deposit(valueDeposit float64) (string, float64) {
+	if valueDeposit < 1 {
+		return "Valor inválido", 0
 	}
-	account2 := CurrentAccount{
-		holder:        "Guilherme",
-		numberAccount: 589,
-		numberAgency:  123456,
-		balance:       125.50,
+	c.balance += valueDeposit
+
+	return "Deposito resgatado com sucesso", c.balance
+}
+func (c *CurrentAccount) withdraw(withdrawalAmount float64) string {
+
+	if withdrawalAmount > 0 {
+		return "Valor para saque inválido"
 	}
-	fmt.Println("Count of "+account.holder+"\nNumber agency:"+
-		"", account.numberAgency, "\nNumber account: ", account.numberAgency, ""+
-		"\nBalance:", account.balance)
 
-	fmt.Println("Count of "+account2.holder+"\nNumber agency:"+
-		"", account2.numberAgency, "\nNumber account: ", account2.numberAgency, ""+
-		"\nBalance:", account2.balance)
+	canWithDraw := withdrawalAmount <= c.balance
 
-	fmt.Println(account == account2)
-	fmt.Println("\n\n\n\n\n\n")
-	var countYasmin *CurrentAccount
-	countYasmin = new(CurrentAccount)
-	countYasmin.holder = "Yasmin"
-	countYasmin.balance = 800
+	if canWithDraw {
+		c.balance -= withdrawalAmount
+		return "Saque realizado com sucesso"
+	}
 
-	fmt.Println(*countYasmin, "Ponteiro")
-	fmt.Println(countYasmin, "Sem ponteiro")
-
-	var countYasmin2 *CurrentAccount
-	countYasmin2 = new(CurrentAccount)
-	countYasmin2.holder = "Yasmin"
-	countYasmin2.balance = 800
-
-	fmt.Println(*countYasmin2, "Ponteiro")
-	fmt.Println(countYasmin2, "Sem ponteiro\n\n")
-
-	fmt.Println(&countYasmin)
-	fmt.Println(&countYasmin2)
-	fmt.Println(countYasmin2, "Sem ponteiro")
-
-	fmt.Println(*countYasmin == *countYasmin2)
+	return "Saldo insuficiente"
 }
