@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type CurrentAccount struct {
 	holder        string
@@ -11,24 +13,26 @@ type CurrentAccount struct {
 
 func main() {
 
-	countGui := CurrentAccount{}
+	countGui := CurrentAccount{holder: "Gui", numberAccount: 12, numberAgency: 21, balance: 200}
+	countYas := CurrentAccount{holder: "Yas", numberAccount: 12, numberAgency: 21, balance: 200}
 
-	countGui.holder = "Gui"
-	countGui.balance = 500
+	status := countYas.Transfer(0, &countGui)
 
-	withdrawalAmount := 200.
+	fmt.Println(status)
 
-	fmt.Println(countGui.withdraw(withdrawalAmount))
-	fmt.Println(countGui)
-
-	status, valor := countGui.Deposit(500)
-
-	fmt.Println(status, valor)
-
+	fmt.Println(countYas)
 	fmt.Println(countGui)
 
 }
 
+func (c *CurrentAccount) Transfer(valueTransfer float64, countDestiny *CurrentAccount) bool {
+	if valueTransfer <= c.balance && valueTransfer > 0 {
+		c.balance -= valueTransfer
+		countDestiny.Deposit(valueTransfer)
+		return true
+	}
+	return false
+}
 func (c *CurrentAccount) Deposit(valueDeposit float64) (string, float64) {
 	if valueDeposit < 1 {
 		return "Valor inválido", 0
