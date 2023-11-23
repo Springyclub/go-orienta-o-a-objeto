@@ -1,50 +1,46 @@
 package learning
 
-import "fmt"
-
-type CurrentAccount struct {
-	holder        string
-	numberAccount int
-	numberAgency  int
-	balance       float64
-}
+import (
+	"fmt"
+	count "go-orienta-o-a-objeto/learning/count"
+)
 
 func pointer() {
 
-	account := CurrentAccount{
-		holder:        "Guilherme",
-		numberAccount: 589,
-		numberAgency:  123456,
-		balance:       125.50,
+	account := count.CurrentAccount{
+		Holder:        "Guilherme",
+		NumberAccount: 589,
+		NumberAgency:  123456,
+		salance:       125.50,
 	}
-	account2 := CurrentAccount{
-		holder:        "Guilherme",
-		numberAccount: 589,
-		numberAgency:  123456,
-		balance:       125.50,
+	account2 := count.CurrentAccount{
+		Holder:        "Guilherme",
+		NumberAccount: 589,
+		NumberAgency:  123456,
+		salance:       125.50,
 	}
-	fmt.Println("Count of "+account.holder+"\nNumber agency:"+
-		"", account.numberAgency, "\nNumber account: ", account.numberAgency, ""+
-		"\nBalance:", account.balance)
+	fmt.Println("Count of "+account.Holder+"\nNumber agency:"+
+		"", account.NumberAgency, "\nNumber account: ", account.NumberAgency, ""+
+		"\nBalance:", account.salance)
 
-	fmt.Println("Count of "+account2.holder+"\nNumber agency:"+
-		"", account2.numberAgency, "\nNumber account: ", account2.numberAgency, ""+
-		"\nBalance:", account2.balance)
+	fmt.Println("Count of "+account2.Holder+"\nNumber agency:"+
+		"", account2.NumberAgency, "\nNumber account: ", account2.NumberAgency, ""+
+		"\nBalance:", account2.salance)
 
 	fmt.Println(account == account2)
 	fmt.Println("\n\n\n\n\n\n")
-	var countYasmin *CurrentAccount
-	countYasmin = new(CurrentAccount)
-	countYasmin.holder = "Yasmin"
-	countYasmin.balance = 800
+	var countYasmin *count.CurrentAccount
+	countYasmin = new(count.CurrentAccount)
+	countYasmin.Holder = "Yasmin"
+	countYasmin.salance = 800
 
 	fmt.Println(*countYasmin, "Ponteiro")
 	fmt.Println(countYasmin, "Sem ponteiro")
 
-	var countYasmin2 *CurrentAccount
-	countYasmin2 = new(CurrentAccount)
-	countYasmin2.holder = "Yasmin"
-	countYasmin2.balance = 800
+	var countYasmin2 *count.CurrentAccount
+	countYasmin2 = new(count.CurrentAccount)
+	countYasmin2.Holder = "Yasmin"
+	countYasmin2.salance = 800
 
 	fmt.Println(*countYasmin2, "Ponteiro")
 	fmt.Println(countYasmin2, "Sem ponteiro\n\n")
