@@ -2,57 +2,43 @@ package main
 
 import (
 	"fmt"
+	clients "go-orienta-o-a-objeto/learning/clients"
+	count "go-orienta-o-a-objeto/learning/count"
 )
 
-type CurrentAccount struct {
-	holder        string
-	numberAccount int
-	numberAgency  int
-	balance       float64
+func PayBill(count verifyCount, valueBill float64) {
+	count.Withdraw(valueBill)
+}
+
+type verifyCount interface {
+	Withdraw(value float64) string
 }
 
 func main() {
 
-	countGui := CurrentAccount{holder: "Gui", numberAccount: 12, numberAgency: 21, balance: 200}
-	countYas := CurrentAccount{holder: "Yas", numberAccount: 12, numberAgency: 21, balance: 200}
+	countGui := count.CountSavings{}
 
-	status := countYas.Transfer(0, &countGui)
+	countGui.Deposit(100)
 
-	fmt.Println(status)
+	fmt.Println(countGui.GetBalance())
+	PayBill(&countGui, 60)
+	fmt.Println(countGui.GetBalance())
 
-	fmt.Println(countYas)
-	fmt.Println(countGui)
-
-}
-
-func (c *CurrentAccount) Transfer(valueTransfer float64, countDestiny *CurrentAccount) bool {
-	if valueTransfer <= c.balance && valueTransfer > 0 {
-		c.balance -= valueTransfer
-		countDestiny.Deposit(valueTransfer)
-		return true
-	}
-	return false
-}
-func (c *CurrentAccount) Deposit(valueDeposit float64) (string, float64) {
-	if valueDeposit < 1 {
-		return "Valor inválido", 0
-	}
-	c.balance += valueDeposit
-
-	return "Deposito resgatado com sucesso", c.balance
-}
-func (c *CurrentAccount) withdraw(withdrawalAmount float64) string {
-
-	if withdrawalAmount > 0 {
-		return "Valor para saque inválido"
+	fmt.Println(countGui.GetBalance())
+	clientGui := clients.Holder{
+		Name:       "Guigas",
+		Document:   "13853314961",
+		Profession: "Trainee developher",
 	}
 
-	canWithDraw := withdrawalAmount <= c.balance
-
-	if canWithDraw {
-		c.balance -= withdrawalAmount
-		return "Saque realizado com sucesso"
+	countEnzo := count.CountSavings{
+		Holder:        clientGui,
+		NumberAccount: 12,
+		NumberAgency:  12,
+		Operation:     12,
 	}
 
-	return "Saldo insuficiente"
+	countEnzo.Deposit(500)
+	PayBill(&countEnzo, 400)
+
 }
